@@ -4,6 +4,7 @@
       "web": "nuxt web"
    },
    "dependencies": {
+      "bootstrap-vue": "^2.0.0-rc.11",
       "nuxt-edge": "^2.0.0-25523369.7c85202"
    }
 }
