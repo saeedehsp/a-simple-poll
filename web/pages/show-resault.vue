@@ -21,13 +21,15 @@
                     <div v-for="choice in choices" :key="choice.id">
                         <input type="radio" :id="choice.id" name="choice" :value="choice.id" v-model="picked">
                         <label :for="choice.id">{{ choice.choice }}</label>
+                          <b-progress :value="45" class="w-25 mb-2"></b-progress>
+
                     </div>
                 </div>
     
     
-                <div id="progressbar">
-                    <b-progress :value="25" variant="success" :striped="striped" class="mb-2"></b-progress>
-                </div>
+                <!-- <div id="progressbar">
+                    <b-progress :value="45" class="w-25 mb-2"></b-progress>
+                </div> -->
     
                 <div id="picked">
                     <span>Picked: {{ picked }}</span>
@@ -124,7 +126,7 @@
 
 <style scoped>
     body {
-        background-color: #cdb7f0;
+        background-color: #888292;
     }
     
     #showReasult1 {
@@ -134,7 +136,7 @@
         text-align: center;
         margin-top: 10%;
         border-width: 2%;
-        border-color: #240b0b;
+        border-color: #c0bcbc;
     }
     
     #selectedQuestion {
@@ -148,7 +150,7 @@
     }
     
     .field {
-        background-color: #85475175;
+        background-color: #11020475;
         border-radius: 20%;
         border: #ecb603;
         border-width: 20px;
@@ -187,9 +189,11 @@
     }
     
     .mb-2 {
-         margin-top: 3%;
+         /* margin-top: 3%; */
         size: 120%;
         visibility: visible;
+        margin-left: 40%;
+        
     }
     
     #quest {
@@ -201,7 +205,7 @@
     #choices {
         text-align: center;
         margin-top: 1%;
-        color: rgb(25, 37, 37);
+        color: rgb(190, 172, 119);
         ;
     }
     
@@ -213,6 +217,7 @@
     
     #submit {
         margin-top: 1%;
+        margin-bottom: 2%;
         color: blueviolet;
     }
     
