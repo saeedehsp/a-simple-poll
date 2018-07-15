@@ -12,17 +12,17 @@
                         <option v-for="question in questions" :key="question.id">{{ question.question }}</option>
                     </select>
                     <br>
-                    <span>Selected: <br> {{ selected }}</span>
+                <div id="selectedText">
+                    <span >Selected: <br> {{ selected }}</span>
+                </div>
                 </div>
     
     
     
                 <div id="choices">
                     <div v-for="choice in choices" :key="choice.id">
-                        <input type="radio" :id="choice.id" name="choice" :value="choice.id" v-model="picked">
                         <label :for="choice.id">{{ choice.choice }}</label>
-                          <b-progress :value="45" class="w-25 mb-2"></b-progress>
-
+                          <b-progress :value="choice.value" show-value :striped="striped" class="w-25 mb-2"></b-progress>           
                     </div>
                 </div>
     
@@ -31,14 +31,16 @@
                     <b-progress :value="45" class="w-25 mb-2"></b-progress>
                 </div> -->
     
-                <div id="picked">
+                <!-- <div id="picked">
                     <span>Picked: {{ picked }}</span>
-                </div>
+                </div> -->
     
     
                 <div id="remainingTime">
                     <fieldset id="field2">
-                        <span>remainingTime is: {{ message }}</span>
+                        <span>remainingTime is: {{  questions[0].remainingTime }}</span>
+                      
+                    
     
     
                     </fieldset>
@@ -69,15 +71,21 @@
                 striped: true,
                 choices: [{
                         id: "one",
-                        choice: "choice one"
+                        choice: "choice one",
+                        value: 27
+                        
                     },
                     {
                         id: "two",
-                        choice: "choice two"
+                        choice: "choice two",
+                        value: 33
+                        
                     },
                     {
                         id: "three",
-                        choice: "choice three"
+                        choice: "choice three",
+                        value: 40
+                        
                     },
     
                 ],
@@ -86,15 +94,23 @@
     
                 questions: [{
                         id: "one",
-                        question: "question one"
+                        question: "Question 1",
+                        remainingTime:"1 hour"
                     },
                     {
                         id: "two",
-                        question: "question two"
+                        question: "Question 2",
+                        remainingTime:"3 hour"
                     },
                     {
                         id: "three",
-                        question: "question three"
+                        question: "Question 3",
+                        remainingTime:"1 day"
+                    },
+                    {
+                        id: "four",
+                        question: "Question 4",
+                        remainingTime:"2 day"
                     },
     
                 ],
@@ -155,13 +171,14 @@
         border: #ecb603;
         border-width: 20px;
     }
+
     
     #remainingTime {
         border-radius: 3%;
         border: none;
         margin-left: 33%;
         margin-right: 30%;
-        margin-top: 2%;
+        margin-top: 3%;
         margin-bottom: 2%;
         background-color: blanchedalmond;
         color: blueviolet;
@@ -192,8 +209,8 @@
          /* margin-top: 3%; */
         size: 120%;
         visibility: visible;
-        margin-left: 40%;
-        
+        margin-left: 38%;
+        color: #ecb603
     }
     
     #quest {
@@ -224,5 +241,10 @@
     #picked {
         margin-top: 1%;
         color: rgb(0, 247, 255);
+    }
+    #selectedText {
+        text-align: center;
+        margin-top: 1%;
+        color: rgb(159, 219, 103);
     }
 </style>
