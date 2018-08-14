@@ -1,162 +1,71 @@
 <template>
-  <body>
-    <div id="poll1">
-      <fieldset class="field">
-  
-  
-  
-        {{log}}
-        <div id="mypoll">
-          <span> My Poll </span>
+    <div id="main">
+           <b-container style="margin-left:auto;margin-right:auto;width:80%;height:30%;">
+        <div>
+            <b-card text-variant="" title="Polling Website" sub-title=""
+               img-src=https://s22.postimg.cc/akubuey01/business-poll-survey2-2401.jpg
+                img-alt="Card image" img-top style="width:60%; margin-left:auto;margin-right:auto;">
+                <br>
+                <p class="card-text ">welcome to our website</p>
+                <br>
+                <p class="card-text ">
+                    you can add a poll with maximum 4 choices in our website.
+                </p>
+            </b-card>
         </div>
-  
-       
-        <div id="quest">
-          <input v-model="question" placeholder="question">
+        <br>
+        <div>
+            <b-card-group deck >
+               <b-card title="Create Your Poll">
+                   <br>
+                   <p class="card-text">you are able to create your own poll and ask others to vote on it.</p>
+                   <br>
+                   <b-button href="/create-poll" variant="primary">Start</b-button>
+                </b-card>
+                <b-card title="Vote">
+                    <br>
+                    <p class="card-text">here you can vote to multiplequestions .</p>
+                    <br>
+                    <b-button href="/vote" variant="primary">let's vote</b-button>
+                </b-card>
+                <b-card title="Check The Results">
+                    <br>
+                    <p class="card-text">here you can check the results of polls .</p>
+                    <br>
+                    <b-button href="/show-resault" variant="primary">Check out</b-button> 
+                </b-card>
+            </b-card-group>
         </div>
-  <div id="choices">
-      <div id="one">
-        <input type="radio" id="one" value="one" v-model="picked">
-         <input v-model="choice[0]" placeholder="your choice">
-
-      </div>
-      <div id="two">
-        <input type="radio" id="two" value="Two" v-model="picked">
-        <input v-model="choice[1]" placeholder="your choice">
-      </div>
-      
-      <div v-if="clicked >0">
-           <div id="three">
-            <input type="radio" id="three" value="three" v-model="picked">
-            <input v-model="choice[2]" placeholder="your choice">
-         </div>  
-      </div>
-
-       <div v-if="clicked >1">
-           <div id="four">
-            <input type="radio" id="four" value="four" v-model="picked">
-            <input v-model="choice[3]" placeholder="your choice">
-         </div>  
-      </div>
+    </b-container>
     </div>
-
-  
-          <!-- <span>Picked: {{ picked }}</span>
-   -->
-  
-           <div id="addchoice">
-              <button v-on:click="clicked++"> add choice</button>
-           </div>
-  
-          <div id="deadline">
-            <fieldset id="field2">
-              <span>deadline is: {{ message }}</span>
-              <input v-model="message" placeholder="days">
-            </fieldset>
-          </div>
-  
-          <div id="removepoll">
-            <button v-on:click="addtodb"> submit </button>
-          </div>
-  
-      </fieldset>
-      </div>
-  </body>
 </template>
+
 <script>
-  module.exports = {
-    data: function() {
-      return {
-        log: "",
-        picked: "",
-        question: "",
-        message: "",
-        choice:[] ,
-        clicked: 0,
-
-      };
-    },
-    methods: {
-      addtodb: function() {
-        this.log = this.question;
-        this.log = this.choice;
-      },
-      removePoll: function() {
-        this.log = this.question;
-      },
-      addbutton : function(){
-        radiobutton();
-      }
-    }
-  }
-
+    
 </script>
 
-
 <style scoped>
-  body {
-    background-color: #cdb7f0;
-  }
-  
-  #poll1 {
-    width: 40%;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    margin-top: 10%;
-  }
-  
-  .field {
-    background-color: #85475175;
-    border-radius: 20%;
-    border: none;
-  }
-  
-  #deadline {
-    border-radius: 3%;
-    border: none;
-    margin-left: 33%;
-    margin-right: 30%;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    background-color: blanchedalmond;
-    color: blueviolet;
-  }
-  
-  #field2 {
-    border-radius: 3%;
-    border: none;
-    background-color: blanchedalmond;
-    color: blueviolet;
-  }
-  
-  #mypoll {
-    font-size: 200%;
-    color: #240b0b;
-    margin-top: 4%;
-    margin-bottom: 1%;
-  }
-  
-  #quest {
-    text-align: center;
-    margin-left: 3%;
+     
+    body {
+    
+        font: 15px/1.3 'Open Sans', 'sans-serif';
+        background-color: #befbff;
+        text-align: center;
+    
+    }
+ 
+    body { 
+        width: 100%;   
+        height: 100%;  
+    }
 
-  }
-  
-  #choices {
-    text-align: center;
-    margin-top: 1%;
-    color: blueviolet;
-  }
-  
-  #addchoice {
-    text-align: center;
-    margin-top: 1%;
-    color: blueviolet;
-  }
-  
-  #removepoll {
-    margin-top: 1%;
-    color: blueviolet;
-  }
+    p {
+    
+        font-size: 22px;
+        font-weight: 500;
+        float: center; 
+        color: #034c6e;
+    
+    }
+     
 </style>

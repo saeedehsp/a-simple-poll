@@ -2,123 +2,69 @@
     <body>
         <div id="showReasult1">
             <fieldset class="field">
-    
                 {{log}}
-    
-                <div id="selectedQuestion">
+                 <div id="selectedQuestion">
                     <span>Select your question:</span>
                     <br>
-                    <select v-model="selected">
-                        <option v-for="question in questions" :key="question.id">{{ question.question }}</option>
+                    <select v-model="selected" v-on:change="showchoices(selected)" >
+                        <option v-for="question in questions" :key="question._id" 
+                        :value="question._id" >{{ question.question }}</option>
                     </select>
                     <br>
-                <div id="selectedText">
-                    <span >Selected: <br> {{ selected }}</span>
+                    <span>Selected: <br> {{ selected ? questions[selected].question : '' }}</span>
                 </div>
-                </div>
-    
-    
-    
-                <div id="choices">
-                    <div v-for="choice in choices" :key="choice.id">
-                        <label :for="choice.id">{{ choice.choice }}</label>
-                          <b-progress :value="choice.value" show-value :striped="striped" class="w-25 mb-2"></b-progress>           
+
+                <div id="getchoices">
+                    <div id="choices">
+                        <div v-for="choice in (choices)" :key="choice._id.choice">
+                            <div v-for="choiced in ( questions[selected].choices)" :key="choiced._id">
+                                <div v-if="choice._id.choice == choiced._id ">
+                                    <label >{{ choiced.text }}</label>
+                                    <b-progress :value="choice.count*100/total" show-value :striped="striped" class="w-25 mb-2"></b-progress>    
+                                </div>
+                            </div>       
+                        </div> 
                     </div>
                 </div>
-    
-    
-                <!-- <div id="progressbar">
-                    <b-progress :value="45" class="w-25 mb-2"></b-progress>
-                </div> -->
-    
-                <!-- <div id="picked">
-                    <span>Picked: {{ picked }}</span>
-                </div> -->
-    
-    
-                <div id="remainingTime">
-                    <fieldset id="field2">
-                        <span>remainingTime is: {{  questions[0].remainingTime }}</span>
-                      
-                    
-    
-    
-                    </fieldset>
-                </div>
-    
-                <div id="submit">
-                    <button v-on:click="submit"> submit </button>
-                </div>
-    
-    
-    
-    
-    
             </fieldset>
         </div>
     </body>
 </template>
 
 <script>
-    module.exports = {
+import axios from 'axios';
+
+    export default {
         data: function() {
             return {
                 log: "",
                 picked: "",
                 question: "",
                 message: "",
-    
+                remainingTime: "",    
                 striped: true,
-                choices: [{
-                        id: "one",
-                        choice: "choice one",
-                        value: 27
-                        
-                    },
-                    {
-                        id: "two",
-                        choice: "choice two",
-                        value: 33
-                        
-                    },
-                    {
-                        id: "three",
-                        choice: "choice three",
-                        value: 40
-                        
-                    },
-    
-                ],
                 clicked: 0,
                 selected: '',
-    
-                questions: [{
-                        id: "one",
-                        question: "Question 1",
-                        remainingTime:"1 hour"
-                    },
-                    {
-                        id: "two",
-                        question: "Question 2",
-                        remainingTime:"3 hour"
-                    },
-                    {
-                        id: "three",
-                        question: "Question 3",
-                        remainingTime:"1 day"
-                    },
-                    {
-                        id: "four",
-                        question: "Question 4",
-                        remainingTime:"2 day"
-                    },
-    
-                ],
-    
+                choices:[],
+                total:0,
+                re:{}
             };
         },
     
-    
+        async asyncData() {
+            // We can return a Promise instead of calling the callback
+            let returnedQuestions = (await axios.get('http://localhost:3001/getgozine')).data;
+            let questions = {};
+
+            Array.prototype.forEach.call(returnedQuestions , item => {
+                questions[item._id] = item;
+            })
+
+            return {
+                questions
+            }
+           
+        },
         methods: {
             addtodb: function() {
                 this.log = this.question;
@@ -129,6 +75,12 @@
             },
             addbutton: function() {
                 radiobutton();
+            },
+            async showchoices(selected){
+                let answer={};
+                answer = (await axios.get(`http://localhost:3001/getresult/${this.questions[this.selected]._id}`)).data;
+                this.choices=answer.array;
+                this.total=answer.total;
             },
             addFind: function() {
                 this.finds.push({

@@ -5,9 +5,9 @@
 </div>
 </template>
 <script>
-import navigation from "~/components/layout/header.vue"
-export default{
-components: {navigation}
+  import navigation from "~/components/layout/header.vue"
+  export default{
+    components: {navigation}
     
-}
+  }
 </script>
