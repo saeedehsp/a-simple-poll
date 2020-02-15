@@ -21,21 +21,22 @@ app.get('/getchoice', function (req, res) {
     Poll.find().lean().exec(function (err, docs) {
         return res.end(JSON.stringify(docs));
     });
-    // res.send(choices)
 })
 
 app.post('/sendpoll', async function (req, res) {
+    var date = new Date()
+    date.setDate(date.getDate() + parseInt(req.body.poll.remainingtime, 10))
     var newPoll = await new Poll({
         question: req.body.poll.question,
         choices : req.body.poll.choice,
-        remainingTime: req.body.poll.remainingtime
+        remainingTime: date
 
     });
     newPoll.save(function (error) {
         if (error)
             console.log(error);
     });
-    
+    return res.end("ok")
 });
 
 app.get('/getquestions', function (req, res) {
@@ -60,7 +61,7 @@ app.get('/getresult/:id',async function (req, res) {
                 count: { $sum: 1 }
             }
          }
-         
+
     ],
         function (err, docs) {
             let array={};
@@ -72,7 +73,7 @@ app.get('/getresult/:id',async function (req, res) {
                     total += docs[i].count;
                 }
             }
-            
+
             if (err) console.log(err);
                return res.send({array,total});
         }
@@ -83,7 +84,7 @@ app.post('/sendvote',async function(req, res) {
 
     Poll.findById(req.body.question).lean().exec(async (err, quest) => {
         isSafe = false
-    
+
         if (quest){
             quest.choices.forEach(choice => {
                 if(req.body.choice == choice._id){
@@ -91,7 +92,7 @@ app.post('/sendvote',async function(req, res) {
                 }
             });
         }
-    
+
         if(isSafe){
             var newVote = await new Result({
                 pollID: req.body.question,

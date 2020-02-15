@@ -1,13 +1,15 @@
 <template>
   <div>
     <navigation/>
-        <nuxt/>
-</div>
+    <nuxt/>
+  </div>
 </template>
 <script>
   import navigation from "~/components/layout/header.vue"
-  export default{
-    components: {navigation}
-    
+  export default {
+    components: {
+      navigation
+    }
+
   }
 </script>
